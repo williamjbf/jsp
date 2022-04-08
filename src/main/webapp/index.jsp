@@ -12,7 +12,7 @@
 <body>
 <div class="container w-auto">
 
-    <form class="row border w-50 needs-validation shadow-lg p-3 mb-5 bg-body rounded" novalidate style="margin:20% auto" action="ServletLogin" method="post">
+    <form class="row border w-50 needs-validation shadow-lg p-3 mb-5 bg-body rounded" novalidate style="margin:20% auto" action="<%=request.getContextPath()%>/ServletLogin" method="post">
         <h1 class="text-center">Login</h1>
         <h6 class="text-center text-danger">${msg}</h6>
         <input type="hidden" value="<%= request.getParameter("url") %>" name="url">

@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@WebFilter(urlPatterns = {"/main/*"})
+@WebFilter(urlPatterns = {"/main/*", "/partial/*"})
 public class FilterAuth implements Filter {
 
     private static Connection connection;

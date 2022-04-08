@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/main/ServletLogin", "/ServletLogin"})
+@WebServlet(urlPatterns = {"/main/ServletLogin","/partial/ServletLogin", "/ServletLogin"})
 public class ServletLogin extends HttpServlet {
 
     private DAOLoginRepository daoLoginRepository = new DAOLoginRepository();
@@ -20,7 +20,17 @@ public class ServletLogin extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request,response);
+
+        String action = request.getParameter("action");
+
+        if (action != null && action.equalsIgnoreCase("logout")){
+            request.getSession().invalidate();
+            RequestDispatcher redirect = request.getRequestDispatcher("index.jsp");
+            redirect.forward(request,response);
+        }else {
+            doPost(request,response);
+        }
+
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
