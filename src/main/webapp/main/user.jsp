@@ -124,7 +124,7 @@
                                                     </div>
                                                 </div>
 
-                                                <button class="col-sm-2 btn btn-primary waves-effect waves-light">New
+                                                <button class="col-sm-2 btn btn-primary waves-effect waves-light">Clean
                                                 </button>
                                                 <button class="col-sm-2 btn btn-success waves-effect waves-light">Save
                                                 </button>

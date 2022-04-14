@@ -38,7 +38,7 @@ public class ServletUserController extends HttpServlet {
             modelLogin.setLogin(login);
             modelLogin.setPassword(password);
 
-            daoUserRepository.saveUser(modelLogin);
+            modelLogin = daoUserRepository.saveUser(modelLogin);
 
             RequestDispatcher redirect = request.getRequestDispatcher("main/user.jsp");
             request.setAttribute("model", modelLogin);
