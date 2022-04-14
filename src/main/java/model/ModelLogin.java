@@ -9,19 +9,10 @@ public class ModelLogin implements Serializable {
 
 
     private Long id;
-    private String nome;
+    private String name;
     private String email;
     private String login;
     private String password;
-
-    public ModelLogin() {
-    }
-
-    public ModelLogin(String login, String password) {
-        this.login = login;
-        this.password = password;
-    }
-
 
     public Long getId() {
         return id;
@@ -31,12 +22,12 @@ public class ModelLogin implements Serializable {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {

@@ -1,3 +1,4 @@
+
 <%--
   Created by IntelliJ IDEA.
   User: william
@@ -62,11 +63,14 @@
                                             <h3>User Registration Form</h3>
                                         </div>
                                         <div class="card-block">
-                                            <form class="form-material" action="<%= request.getContextPath()%>/ServletUserController" method="post">
+                                            <form class="form-material"
+                                                  action="<%= request.getContextPath()%>/ServletUserController"
+                                                  method="post">
                                                 <div class="form-group row">
                                                     <label class="col-sm-2 col-form-label">ID:</label>
                                                     <div class="col-sm-1">
                                                         <input name="id" id="id" type="text" class="form-control form-"
+                                                               value="${model.id}"
                                                                disabled>
                                                     </div>
                                                 </div>
@@ -74,35 +78,59 @@
                                                     <label class="col-sm-2 col-form-label">Name:</label>
                                                     <div class="col-sm-10">
                                                         <input name="name" id="name" type="text" class="form-control"
-                                                               placeholder="User name">
+                                                               placeholder="User name" required="required"
+                                                               value="${model.name}"
+                                                        >
+                                                        <div class="invalid-feedback">
+                                                            please inform the user name
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label class="col-sm-2 col-form-label">Email:</label>
                                                     <div class="col-sm-10">
                                                         <input name="email" id="email" type="email" class="form-control"
-                                                               placeholder="Email">
+                                                               placeholder="Email" required="required"
+                                                               value="${model.email}"
+                                                        >
+                                                        <div class="invalid-feedback">
+                                                            please inform the user email
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label class="col-sm-2 col-form-label">Login:</label>
                                                     <div class="col-sm-10">
                                                         <input name="login" id="login" type="text" class="form-control"
-                                                               placeholder="Login">
+                                                               placeholder="Login" required="required"
+                                                               value="${model.login}"
+                                                        >
+                                                        <div class="invalid-feedback">
+                                                            please inform the user login
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label class="col-sm-2 col-form-label">Password:</label>
                                                     <div class="col-sm-10">
                                                         <input name="password" id="password" type="password"
-                                                               class="form-control" placeholder="Password">
+                                                               class="form-control" placeholder="Password"
+                                                               required="required"
+                                                               value="${model.password}"
+                                                        >
+                                                        <div class="invalid-feedback">
+                                                            please inform the user password
+                                                        </div>
                                                     </div>
                                                 </div>
 
-                                                <button class="col-sm-2 btn btn-primary waves-effect waves-light">New</button>
-                                                <button class="col-sm-2 btn btn-success waves-effect waves-light">Save</button>
-                                                <button class="col-sm-2 btn btn-warning waves-effect waves-light">Edit</button>
-                                                <button class="col-sm-2 btn btn-danger waves-effect waves-light">delete</button>
+                                                <button class="col-sm-2 btn btn-primary waves-effect waves-light">New
+                                                </button>
+                                                <button class="col-sm-2 btn btn-success waves-effect waves-light">Save
+                                                </button>
+                                                <button class="col-sm-2 btn btn-danger waves-effect waves-light">
+                                                    delete
+                                                </button>
                                             </form>
                                         </div>
                                     </div>

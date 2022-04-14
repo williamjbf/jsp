@@ -43,8 +43,9 @@ public class ServletLogin extends HttpServlet {
 
             if (login != null && !login.isEmpty() && password != null && !password.isEmpty()) {
 
-                ModelLogin modelLogin = new ModelLogin(login, password);
-
+                ModelLogin modelLogin = new ModelLogin();
+                modelLogin.setLogin(login);
+                modelLogin.setPassword(password);
                 if (daoLoginRepository.validateAuth(modelLogin)) {
 
                     request.getSession().setAttribute("user", modelLogin.getLogin());
