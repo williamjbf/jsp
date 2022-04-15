@@ -25,6 +25,9 @@ public class ServletUserController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
+
+            String msg = "";
+
             String id = request.getParameter("id");
             String name = request.getParameter("name");
             String email = request.getParameter("email");
@@ -38,9 +41,20 @@ public class ServletUserController extends HttpServlet {
             modelLogin.setLogin(login);
             modelLogin.setPassword(password);
 
-            modelLogin = daoUserRepository.saveUser(modelLogin);
+            if (daoUserRepository.loginExists(modelLogin.getLogin()) && modelLogin.getId() == null) {
+                msg = "There is already a user with the same login, enter another login";
+                modelLogin = daoUserRepository.getUserByLogin(modelLogin.getLogin());
+            } else {
+                if (modelLogin.isNew()) {
+                    msg = "User created successfully";
+                } else {
+                    msg = "User successfully updated";
+                }
+                modelLogin = daoUserRepository.saveUser(modelLogin);
+            }
 
             RequestDispatcher redirect = request.getRequestDispatcher("main/user.jsp");
+            request.setAttribute("msg", msg);
             request.setAttribute("model", modelLogin);
             redirect.forward(request, response);
         } catch (Exception e) {

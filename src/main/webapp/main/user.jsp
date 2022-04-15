@@ -61,9 +61,10 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <h3>User Registration Form</h3>
+                                            <h4>${msg}</h4>
                                         </div>
                                         <div class="card-block">
-                                            <form class="form-material"
+                                            <form id="formUser" class="form-material"
                                                   action="<%= request.getContextPath()%>/ServletUserController"
                                                   method="post">
                                                 <div class="form-group row">
@@ -71,7 +72,7 @@
                                                     <div class="col-sm-1">
                                                         <input name="id" id="id" type="text" class="form-control form-"
                                                                value="${model.id}"
-                                                               disabled>
+                                                               readonly>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -124,7 +125,8 @@
                                                     </div>
                                                 </div>
 
-                                                <button class="col-sm-2 btn btn-primary waves-effect waves-light">Clean
+                                                <button class="col-sm-2 btn btn-primary waves-effect waves-light"
+                                                        onclick="clearForm()">Clean
                                                 </button>
                                                 <button class="col-sm-2 btn btn-success waves-effect waves-light">Save
                                                 </button>
@@ -147,6 +149,18 @@
 </div>
 
 <jsp:include page="/partial/javascript-file.jsp"></jsp:include>
+
+<script>
+
+    function clearForm() {
+        let elements = document.getElementById("formUser").elements;
+
+        for (field = 0; field < elements.length; field++) {
+            elements[field].value = "";
+        }
+    }
+
+</script>
 
 </body>
 
