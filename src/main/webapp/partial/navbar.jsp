@@ -46,7 +46,7 @@
                     </div>
                 </li>
                 <li>
-                    <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
+                    <a href="#!" onclick="toggleFullScreen()" class="waves-effect waves-light">
                         <i class="ti-fullscreen"></i>
                     </a>
                 </li>

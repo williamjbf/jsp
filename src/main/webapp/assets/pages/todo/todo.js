@@ -9,7 +9,7 @@
           // remove nothing message
           if ('.nothing-message') {
               $('.nothing-message').hide('slide', { direction: 'left' }, 300)
-          };
+          }
 
           // create the new li from the form input
           var task = $('input[name=task-insert]').val();

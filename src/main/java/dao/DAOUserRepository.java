@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class DAOUserRepository {
 
-    private Connection connection;
+    private final Connection connection;
 
     public DAOUserRepository() {
         connection = SingleConnectionDB.getConnection();
@@ -65,14 +65,14 @@ public class DAOUserRepository {
 
         statement.setString(1, login);
 
-        ResultSet resultSet = statement.executeQuery();
+        ResultSet result = statement.executeQuery();
 
-        while (resultSet.next()) {
-            modelLogin.setId(resultSet.getLong("id"));
-            modelLogin.setName(resultSet.getString("name"));
-            modelLogin.setEmail(resultSet.getString("email"));
-            modelLogin.setLogin(resultSet.getString("login"));
-            modelLogin.setPassword(resultSet.getString("password"));
+        while (result.next()) {
+            modelLogin.setId(result.getLong("id"));
+            modelLogin.setName(result.getString("name"));
+            modelLogin.setEmail(result.getString("email"));
+            modelLogin.setLogin(result.getString("login"));
+            modelLogin.setPassword(result.getString("password"));
         }
 
         return modelLogin;
@@ -85,10 +85,22 @@ public class DAOUserRepository {
 
         statement.setString(1, login);
 
-        ResultSet resultSet = statement.executeQuery();
+        ResultSet result = statement.executeQuery();
 
-        resultSet.next();
-        return resultSet.getBoolean("exist");
+        result.next();
+        return result.getBoolean("exist");
 
+    }
+
+    public void deleteUserById(String id) throws SQLException {
+
+        String sql = "delete from model_login where id = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        statement.setLong(1, Long.parseLong(id));
+
+        statement.executeUpdate();
+
+        connection.commit();
     }
 }

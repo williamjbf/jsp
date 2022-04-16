@@ -1,4 +1,3 @@
-
 <%--
   Created by IntelliJ IDEA.
   User: william
@@ -67,6 +66,7 @@
                                             <form id="formUser" class="form-material"
                                                   action="<%= request.getContextPath()%>/ServletUserController"
                                                   method="post">
+                                                <input type="hidden" name="action" id="action" value="">
                                                 <div class="form-group row">
                                                     <label class="col-sm-2 col-form-label">ID:</label>
                                                     <div class="col-sm-1">
@@ -125,12 +125,16 @@
                                                     </div>
                                                 </div>
 
-                                                <button class="col-sm-2 btn btn-primary waves-effect waves-light"
+                                                <button type="button"
+                                                        class="col-sm-2 btn btn-primary waves-effect waves-light"
                                                         onclick="clearForm()">Clean
                                                 </button>
-                                                <button class="col-sm-2 btn btn-success waves-effect waves-light">Save
+                                                <button type="submit"
+                                                        class="col-sm-2 btn btn-success waves-effect waves-light">Save
                                                 </button>
-                                                <button class="col-sm-2 btn btn-danger waves-effect waves-light">
+                                                <button type="button"
+                                                        class="col-sm-2 btn btn-danger waves-effect waves-light"
+                                                        onclick="deleteUser()">
                                                     delete
                                                 </button>
                                             </form>
@@ -158,6 +162,18 @@
         for (field = 0; field < elements.length; field++) {
             elements[field].value = "";
         }
+    }
+
+    function deleteUser() {
+
+        if (confirm('do you really want to delete this user?')) {
+            document.getElementById("formUser").method = 'get';
+
+            document.getElementById("action").value = 'delete';
+
+            document.getElementById("formUser").submit();
+        }
+
     }
 
 </script>

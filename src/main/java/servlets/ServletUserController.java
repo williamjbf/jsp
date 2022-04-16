@@ -18,6 +18,25 @@ public class ServletUserController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+
+            String action = request.getParameter("action");
+
+            if (action != null && action.equalsIgnoreCase("delete")) {
+                String idUser = request.getParameter("id");
+                daoUserRepository.deleteUserById(idUser);
+
+                RequestDispatcher redirect = request.getRequestDispatcher("main/user.jsp");
+                request.setAttribute("msg", "User successfully deleted");
+                redirect.forward(request, response);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            RequestDispatcher redirect = request.getRequestDispatcher("erro.jsp");
+            request.setAttribute("msg", e.getMessage());
+            redirect.forward(request, response);
+        }
 
     }
 

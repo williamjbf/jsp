@@ -12,19 +12,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/main/ServletLogin","/partial/ServletLogin", "/ServletLogin"})
+@WebServlet(urlPatterns = {"/main/ServletLogin", "/partial/ServletLogin", "/ServletLogin"})
 public class ServletLogin extends HttpServlet {
 
-    private DAOLoginRepository daoLoginRepository = new DAOLoginRepository();
-    private DAOUserRepository daoUserRepository = new DAOUserRepository();
-    public ServletLogin(){
+    private final DAOLoginRepository daoLoginRepository = new DAOLoginRepository();
+    private final DAOUserRepository daoUserRepository = new DAOUserRepository();
+
+    public ServletLogin() {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String action = request.getParameter("action");
 
-        if (action != null && action.equalsIgnoreCase("logout")){
+        if (action != null && action.equalsIgnoreCase("logout")) {
             request.getSession().invalidate();
             RequestDispatcher redirect = request.getRequestDispatcher("index.jsp");
             redirect.forward(request,response);
