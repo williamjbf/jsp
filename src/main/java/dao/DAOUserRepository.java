@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DAOUserRepository {
 
@@ -76,6 +78,30 @@ public class DAOUserRepository {
         }
 
         return modelLogin;
+    }
+
+    public List<ModelLogin> getUserByName(String name) throws SQLException {
+
+        List<ModelLogin> userList = new ArrayList<>();
+
+        String sql = "select * from model_login where upper(name) ilike upper(?)";
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        statement.setString(1, "%" + name + "%");
+
+        ResultSet result = statement.executeQuery();
+
+        while (result.next()) {
+            ModelLogin user = new ModelLogin();
+
+            user.setId(result.getLong("id"));
+            user.setName(result.getString("name"));
+            user.setEmail(result.getString("email"));
+            user.setLogin(result.getString("login"));
+            //user.setPassword(result.getString("password"));
+            userList.add(user);
+        }
+        return userList;
     }
 
     public boolean loginExists(String login) throws SQLException {

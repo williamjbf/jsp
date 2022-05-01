@@ -1,5 +1,6 @@
 package servlets;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.DAOUserRepository;
 import model.ModelLogin;
 
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "ServletUserController", value = "/ServletUserController")
 public class ServletUserController extends HttpServlet {
@@ -29,6 +31,13 @@ public class ServletUserController extends HttpServlet {
                 RequestDispatcher redirect = request.getRequestDispatcher("main/user.jsp");
                 request.setAttribute("msg", "User successfully deleted");
                 redirect.forward(request, response);
+            } else if (action != null && action.equalsIgnoreCase("search")) {
+                String searchName = request.getParameter("searchName");
+                List<ModelLogin> usersFound = daoUserRepository.getUserByName(searchName);
+
+                ObjectMapper mapper = new ObjectMapper();
+                String json = mapper.writeValueAsString(usersFound);
+                response.getWriter().write(json);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -7,6 +7,14 @@ CREATE DATABASE jsp
     TABLESPACE = pg_default
     CONNECTION LIMIT = -1;
 
+
+CREATE SEQUENCE IF NOT EXISTS public.model_login_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
 CREATE TABLE IF NOT EXISTS public.model_login
 (
     login character varying(200) COLLATE pg_catalog."default" NOT NULL,
@@ -17,10 +25,5 @@ CREATE TABLE IF NOT EXISTS public.model_login
     CONSTRAINT model_login_pkey PRIMARY KEY (id),
     CONSTRAINT login_unique UNIQUE (login)
 )
-
-TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.model_login
-    OWNER to postgres;
 
 INSERT into public.model_login(name,email,login,password) values('admin','admin@admin.com','admin','admin');

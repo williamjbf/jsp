@@ -137,6 +137,10 @@
                                                         onclick="deleteUser()">
                                                     delete
                                                 </button>
+                                                <button type="button" class="col-sm-2 btn btn-secondary"
+                                                        data-toggle="modal" data-target="#modalUser">Search
+                                                </button>
+
                                             </form>
                                         </div>
                                     </div>
@@ -154,12 +158,90 @@
 
 <jsp:include page="/partial/javascript-file.jsp"></jsp:include>
 
+<!-- Modal -->
+<div class="modal fade" id="modalUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">user search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Name" aria-label="name" id="searchName"
+                           aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-success" type="button" onclick="searchUsers();">Search</button>
+                    </div>
+                </div>
+
+                <div style="height: 300px;overflow: scroll;">
+                    <table class="table" id="resultsTable">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">View</th>
+                            <th scope="col">Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+                <span id="totalResults"></span>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
+
+    function searchUsers() {
+        const searchName = document.getElementById('searchName').value;
+
+        if (searchName != null && searchName !== '' && searchName.trim() !== '') {
+
+            $.ajax({
+                method: "get",
+                url: "/ServletUserController",
+                data: "searchName=" + searchName + '&action=search',
+                success: function (response) {
+                    let json = JSON.parse(response)
+
+                    $('#resultsTable > tbody > tr').remove();
+
+                    for (let position = 0; position < json.length; position++) {
+                        $('#resultsTable > tbody').append(
+                            '<tr> ' +
+                            '<td>' + json[position].id + '</td> +' +
+                            '<td>' + json[position].name + '</td>+' +
+                            '<td> <button class="btn btn-info" type="button" onclick="">View</button></td>' +
+                            '<td> <button class="btn btn-warning" type="button" onclick="">Delete</button> </td>' +
+                            '</tr>')
+                    }
+                    document.getElementById('totalResults').textContent = ('Results:' + json.length);
+                }
+
+            }).fail(function (xhr, status, errorThrown) {
+                alert('Error fetching user: ' + xhr.responseText);
+            });
+        }
+    }
 
     function clearForm() {
         let elements = document.getElementById("formUser").elements;
 
-        for (field = 0; field < elements.length; field++) {
+        for (let field = 0; field < elements.length; field++) {
             elements[field].value = "";
         }
     }
@@ -167,11 +249,20 @@
     function deleteUser() {
 
         if (confirm('do you really want to delete this user?')) {
-            document.getElementById("formUser").method = 'get';
+            const idUser = document.getElementById('id').value;
 
-            document.getElementById("action").value = 'delete';
+            $.ajax({
+                method: "get",
+                url: "/ServletUserController",
+                data: "id=" + idUser + '&action=delete',
+                success: function (response) {
+                    clearForm();
+                    document.getElementById('msg').textContent = response;
+                }
 
-            document.getElementById("formUser").submit();
+            }).fail(function (xhr, status, errorThrown) {
+                alert('Error deleting user: ' + xhr.responseText);
+            });
         }
 
     }
