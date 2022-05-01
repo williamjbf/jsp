@@ -38,6 +38,13 @@ public class ServletUserController extends HttpServlet {
                 ObjectMapper mapper = new ObjectMapper();
                 String json = mapper.writeValueAsString(usersFound);
                 response.getWriter().write(json);
+            } else if (action != null && action.equalsIgnoreCase("edit")) {
+                String id = request.getParameter("id");
+
+                ModelLogin modelLogin = daoUserRepository.getUserById(id);
+                request.setAttribute("msg", "User being edited");
+                request.setAttribute("model", modelLogin);
+                request.getRequestDispatcher("main/user.jsp").forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();

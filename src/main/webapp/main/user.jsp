@@ -206,6 +206,13 @@
 
 <script>
 
+    function editUser(id) {
+
+
+        window.location.href = '/ServletUserController?action=edit&id=' + id;
+
+    }
+
     function searchUsers() {
         const searchName = document.getElementById('searchName').value;
 
@@ -225,7 +232,7 @@
                             '<tr> ' +
                             '<td>' + json[position].id + '</td> +' +
                             '<td>' + json[position].name + '</td>+' +
-                            '<td> <button class="btn btn-info" type="button" onclick="">View</button></td>' +
+                            '<td> <button class="btn btn-info" type="button" onclick="editUser(' + json[position].id + ')">View</button></td>' +
                             '<td> <button class="btn btn-warning" type="button" onclick="">Delete</button> </td>' +
                             '</tr>')
                     }
